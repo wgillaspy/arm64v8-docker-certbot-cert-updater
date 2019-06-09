@@ -6,7 +6,7 @@ pipeline {
         stage('Prep') {
           steps {
 
-           sh "certbot -h"
+           sh "certbot renew"
 
           }
         }
