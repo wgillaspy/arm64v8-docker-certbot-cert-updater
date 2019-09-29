@@ -3,7 +3,7 @@ pipeline {
     agent { label 'jenkins-bc-certbot' }
 
      triggers {
-            pollSCM('H */12 * * *')
+            cron('H 1 * * *')
      }
 
     stages {
