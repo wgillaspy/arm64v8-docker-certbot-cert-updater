@@ -19,7 +19,7 @@ pipeline {
 
               withCredentials([usernamePassword(credentialsId: 'CF_API_USER_PASS', usernameVariable: 'EMAIL', passwordVariable: 'API_KEY')]) {
 
-                  sh "certbot renew --preferred-challenges=dns --manual-auth-hook ./authenticator.sh --manual-cleanup-hook ./cleanup.sh"
+                  sh "certbot renew --no-random-sleep-on-renew --preferred-challenges=dns --manual-auth-hook ./authenticator.sh --manual-cleanup-hook ./cleanup.sh"
               }
 
           }
