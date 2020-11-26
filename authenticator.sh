@@ -11,14 +11,14 @@ DOMAIN=$(expr match "$CERTBOT_DOMAIN" '.*\.\(.*\..*\)')
 ZONE_EXTRA_PARAMS="status=active&page=1&per_page=20&order=status&direction=desc&match=all"
 ZONE_ID=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones?name=$DOMAIN&$ZONE_EXTRA_PARAMS" \
      -H     "X-Auth-Email: $EMAIL" \
-     -H     "X-Auth-Key: $API_KEY" \
+     -H     "Authorization: Bearer $API_KEY" \
      -H     "Content-Type: application/json" | python -c "import sys,json;print(json.load(sys.stdin)['result'][0]['id'])")
 
 # Create TXT record
 CREATE_DOMAIN="_acme-challenge.$CERTBOT_DOMAIN"
 RECORD_ID=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records" \
      -H     "X-Auth-Email: $EMAIL" \
-     -H     "X-Auth-Key: $API_KEY" \
+     -H     "Authorization: Bearer $API_KEY" \
      -H     "Content-Type: application/json" \
      --data '{"type":"TXT","name":"'"$CREATE_DOMAIN"'","content":"'"$CERTBOT_VALIDATION"'","ttl":120}' \
              | python -c "import sys,json;print(json.load(sys.stdin)['result']['id'])")

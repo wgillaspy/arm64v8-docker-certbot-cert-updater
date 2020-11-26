@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Get your API key from https://www.cloudflare.com/a/account/my-account
-API_KEY="your-api-key"
-EMAIL="your.email@example.com"
+#API_KEY="your-api-key"
+#EMAIL="your.email@example.com"
 
 if [ -f /tmp/CERTBOT_$CERTBOT_DOMAIN/ZONE_ID ]; then
         ZONE_ID=$(cat /tmp/CERTBOT_$CERTBOT_DOMAIN/ZONE_ID)
@@ -19,7 +19,7 @@ if [ -n "${ZONE_ID}" ]; then
     if [ -n "${RECORD_ID}" ]; then
         curl -s -X DELETE "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$RECORD_ID" \
                 -H "X-Auth-Email: $EMAIL" \
-                -H "X-Auth-Key: $API_KEY" \
+                -H     "Authorization: Bearer $API_KEY" \
                 -H "Content-Type: application/json"
     fi
 fi
