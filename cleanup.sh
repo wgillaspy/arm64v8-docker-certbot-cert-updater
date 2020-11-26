@@ -19,7 +19,7 @@ if [ -n "${ZONE_ID}" ]; then
     if [ -n "${RECORD_ID}" ]; then
         curl -s -X DELETE "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$RECORD_ID" \
                 -H "X-Auth-Email: $EMAIL" \
-                -H     "Authorization: Bearer $API_KEY" \
+                -H "Authorization: Bearer $API_KEY" \
                 -H "Content-Type: application/json"
     fi
 fi

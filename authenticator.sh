@@ -7,6 +7,11 @@
 # Strip only the top domain to get the zone id
 DOMAIN=$(expr match "$CERTBOT_DOMAIN" '.*\.\(.*\..*\)')
 
+if [ -z "$DOMAIN" ]
+then
+    DOMAIN=$CERTBOT_DOMAIN
+fi
+
 # Get the Cloudflare zone id
 ZONE_EXTRA_PARAMS="status=active&page=1&per_page=20&order=status&direction=desc&match=all"
 ZONE_ID=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones?name=$DOMAIN&$ZONE_EXTRA_PARAMS" \
